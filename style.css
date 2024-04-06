@@ -1,4 +1,14 @@
-.canvas{
-    height: auto;
-    width: auto;
+* {
+	padding: 0%;
+	margin: 0%;
+	box-sizing: border-box;
+}
+
+.main {
+	display: grid;
+	place-items: center;
+}
+
+.canvas {
+	background-color: #e5e5e5;
 }
