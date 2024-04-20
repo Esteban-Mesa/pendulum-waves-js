@@ -1,8 +1,14 @@
+import PlayBar from "./PlayBar";
+
 function Canvas() {
 	return (
-		<div className="bg-caGray-30 flex items-center justify-center">
-			<canvas width={100} height={100} className="bg-red-400"></canvas>
-		</div>
+		<main className="bg-caGray-30 flex flex-col items-center justify-center">
+			<canvas
+				width={500}
+				height={500}
+				className="bg-caGray-10 h-[80%] max-h-96 aspect-square"></canvas>
+			<PlayBar />
+		</main>
 	);
 }
 
