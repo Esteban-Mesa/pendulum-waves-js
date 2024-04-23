@@ -25,4 +25,4 @@ function PlayBar() {
 	// TODO: add sppedBar and fullScreen
 }
 
-export default PlayBar;
+export {PlayBar};

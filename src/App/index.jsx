@@ -1,5 +1,5 @@
 import { TopBar } from "../topBar";
-import { Canvas } from "../canvas";
+import { CanvasContainer } from "../canvas";
 import { ConsoleAnimator } from "../consoleAnimator";
 import { ConcentricProvider } from "../context/ConcentricContext";
 import "./app.css";
@@ -9,7 +9,7 @@ function App() {
 		<ConcentricProvider>
 			<div className="app-layout">
 				<TopBar />
-				<Canvas />
+				<CanvasContainer />
 				<ConsoleAnimator />
 			</div>
 		</ConcentricProvider>
