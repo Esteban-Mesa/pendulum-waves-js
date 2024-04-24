@@ -5,6 +5,9 @@ const ConcentricContext = React.createContext();
 
 function ConcentricProvider({ children }) {
 	const [nodeAnimatorList, setNodeAnimatorList] = useState([]);
+	const [animContext, setAnimContext] = useState();
+	const [sizeCanvas, setSizeCanvas] = useState({ w: 0, h: 0 });
+
 	const addNodeAnim = () => {
 		if (nodeAnimatorList.length === 0) {
 			setNodeAnimatorList([1]);
@@ -17,7 +20,15 @@ function ConcentricProvider({ children }) {
 
 	return (
 		<ConcentricContext.Provider
-			value={{ nodeAnimatorList, setNodeAnimatorList, addNodeAnim }}>
+			value={{
+				nodeAnimatorList,
+				setNodeAnimatorList,
+				addNodeAnim,
+				animContext,
+				setAnimContext,
+				sizeCanvas,
+				setSizeCanvas,
+			}}>
 			{children}
 		</ConcentricContext.Provider>
 	);

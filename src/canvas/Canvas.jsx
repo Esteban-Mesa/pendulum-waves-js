@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import { draw, update } from "../utils/animatorEngine";
 
 function Canvas() {
 	const ref = useRef();
@@ -8,15 +9,19 @@ function Canvas() {
 		canvas.height = 500;
 		canvas.width = 500;
 
-		const circleBrush = (center_x, center_y, radius, color) => {
-			const circle = new Path2D();
-			circle.arc(center_x, center_y, radius, 0, 2 * Math.PI);
-			ctx.fillStyle = color;
-			ctx.fill(circle);
-		};
-		circleBrush(100, 100, 20, "blue");
-		circleBrush(200, 200, 50, "red");
-		circleBrush(400, 300, 30, "gray");
+		const ball = [
+			{ center_x: 10, center_y: 300, radius: 20, color: "red" },
+			{ center_x: 10, center_y: 400, radius: 10, color: "blue" },
+		];
+
+		function renderAnimation() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			draw(ball, canvas, ctx);
+			update(ball);
+			requestAnimationFrame(renderAnimation);
+		}
+
+		requestAnimationFrame(renderAnimation);
 	}, []);
 
 	return (
