@@ -10,8 +10,8 @@ function ConsoleAnimator() {
 	return (
 		<aside className="bg-caGray-90 flex flex-col p-3 overflow-y-scroll">
 			<ul className="flex flex-col flex-1">
-				{nodeAnimatorList.map((node) => (
-					<ElementAnimator text={node} />
+				{nodeAnimatorList.map((node, index) => (
+					<ElementAnimator text={node} key={index} />
 				))}
 			</ul>
 			<button
