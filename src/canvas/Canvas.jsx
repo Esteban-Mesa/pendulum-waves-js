@@ -5,7 +5,7 @@ import { ConcentricContext } from "../context/ConcentricContext";
 function Canvas() {
 	const { nodeAnimatorList } = useContext(ConcentricContext);
 	const ref = useRef();
-	let ball = [
+	const ball = [
 		{ center_x: 10, center_y: 300, radius: 20, color: "red" },
 		{ center_x: 10, center_y: 400, radius: 10, color: "blue" },
 		{

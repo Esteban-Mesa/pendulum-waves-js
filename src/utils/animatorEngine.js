@@ -1,5 +1,4 @@
 function draw(items, canvas = { width: 0, height: 0 }, context) {
-	const ctx = context;
 	//#region engine
 	const calculatePolar = (angle = 0, distance = 0) => {
 		const toRad = (angle * Math.PI) / 180;
@@ -14,8 +13,8 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 	const circleBrush = ({ center_x, center_y, radius, color }) => {
 		const circle = new Path2D();
 		circle.arc(center_x, center_y, radius, 0, 2 * Math.PI);
-		ctx.fillStyle = color;
-		ctx.fill(circle);
+		context.fillStyle = color;
+		context.fill(circle);
 	};
 
 	//#region entitise
@@ -32,15 +31,38 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 		},
 	});
 
-	items.map((item) => {
-		circleBrush(item);
-	});
+	const pendulumWave = ({
+		amount = 0,
+		centerGap = 0,
+		gap = 0,
+		angle = 0,
+		size = 0,
+		color = "black",
+	}) => {
+		let group = [];
+
+		for (let i = 0; i < amount; i++) {
+			const p = pendulum({
+				angle: angle,
+				radius: centerGap + gap * i,
+				size: size,
+				color: color,
+			});
+			group.push(p);
+		}
+
+		return group;
+	};
+
+	// items.map((item) => {
+	// 	circleBrush(item);
+	// });
 }
 
 function update(items) {
-	items.map((item) => {
-		item.center_x += 1;
-	});
+	// items.map((item) => {
+	// 	item.center_x += 1;
+	// });
 }
 
 export { draw, update };
