@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Play } from "../assets/play.jsx";
 import { Pause } from "../assets/pause.jsx";
-
+import { ConcentricContext } from "../context/ConcentricContext";
 function PlayBar() {
-	const [onPlay, setOnPlay] = useState(false);
+	const { pauseAnimation, setPauseAnimation } = useContext(ConcentricContext);
 
 	const switchPlay = () => {
-		if (onPlay) {
+		if (pauseAnimation) {
 			return <Pause className="text-black h-6" />;
 		} else {
 			return <Play className="text-black h-6" />;
@@ -15,7 +15,17 @@ function PlayBar() {
 
 	return (
 		<div className="flex items-center justify-between h-6 w-[300px] mt-5">
-			{switchPlay()}
+			<button
+				type="button"
+				onClick={() => {
+					if (pauseAnimation) {
+						setPauseAnimation(false);
+					} else {
+						setPauseAnimation(true);
+					}
+				}}>
+				{switchPlay()}
+			</button>
 			<div className="flex items-center">
 				<div className="bg-black h-1 w-[100px]"></div> X1
 			</div>
@@ -25,4 +35,4 @@ function PlayBar() {
 	// TODO: add sppedBar and fullScreen
 }
 
-export {PlayBar};
+export { PlayBar };

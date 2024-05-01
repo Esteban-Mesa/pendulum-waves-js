@@ -9,11 +9,10 @@ import { draw, update } from "../utils/animatorEngine";
 import { ConcentricContext } from "../context/ConcentricContext";
 
 function Canvas() {
-	const { nodeAnimatorList, moduleAnimationList, setModuleAnimationList } =
+	const { nodeAnimatorList, moduleAnimationList, setModuleAnimationList,pauseAnimation } =
 		useContext(ConcentricContext);
 
 	const [counter, setCounter] = useState(0);
-	const [shouldStop, setShouldStop] = useState(true);
 
 	const ref = useRef();
 	const ball = [
@@ -28,7 +27,7 @@ function Canvas() {
 	];
 
 	useLayoutEffect(() => {
-		if (!shouldStop) {
+		if (!pauseAnimation) {
 			let timerId;
 
 			const animate = () => {
@@ -38,7 +37,7 @@ function Canvas() {
 			timerId = requestAnimationFrame(animate);
 			return () => cancelAnimationFrame(timerId);
 		}
-	}, [shouldStop]);
+	}, [pauseAnimation]);
 
 	useEffect(() => {
 		const canvas = ref.current;

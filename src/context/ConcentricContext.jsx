@@ -4,6 +4,7 @@ import { useState } from "react";
 const ConcentricContext = React.createContext();
 
 function ConcentricProvider({ children }) {
+	const [pauseAnimation, setPauseAnimation] = useState(true);
 	const [nodeAnimatorList, setNodeAnimatorList] = useState([]);
 	const [moduleAnimationList, setModuleAnimationList] = useState([
 		{
@@ -48,6 +49,8 @@ function ConcentricProvider({ children }) {
 				addNodeAnim,
 				moduleAnimationList,
 				setModuleAnimationList,
+				pauseAnimation,
+				setPauseAnimation,
 			}}>
 			{children}
 		</ConcentricContext.Provider>
