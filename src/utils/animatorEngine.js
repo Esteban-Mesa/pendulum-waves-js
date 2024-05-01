@@ -54,15 +54,21 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 		return group;
 	};
 
-	// items.map((item) => {
-	// 	circleBrush(item);
-	// });
+	items.map((item) => {
+		if (item.type === "circle") {
+			circleBrush(item.module);
+		} else {
+			circleBrush(item);
+		}
+	});
 }
 
 function update(items) {
-	// items.map((item) => {
-	// 	item.center_x += 1;
-	// });
+	items.map((item) => {
+		if (item.type === "circle") {
+			item.module.center_x += 1;
+		}
+	});
 }
 
 export { draw, update };

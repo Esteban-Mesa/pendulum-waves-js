@@ -13,7 +13,7 @@ function CircleModule({ type, hash, module, changeDataModule }) {
 						className="text-black"
 						onChange={(event) => {
 							let data = module;
-							data.center_x = event.target.value;
+							data.center_x = parseInt(event.target.value);
 							changeDataModule(hash, data);
 						}}
 					/>
@@ -26,7 +26,7 @@ function CircleModule({ type, hash, module, changeDataModule }) {
 						className="text-black"
 						onChange={(event) => {
 							let data = module;
-							data.center_y = event.target.value;
+							data.center_y = parseInt(event.target.value);
 							changeDataModule(hash, data);
 						}}
 					/>

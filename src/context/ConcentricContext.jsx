@@ -14,6 +14,7 @@ function ConcentricProvider({ children }) {
 				center_y: 300,
 				radius: 20,
 				color: "#D92929",
+				direction: "r",
 			},
 		},
 		{
@@ -24,6 +25,7 @@ function ConcentricProvider({ children }) {
 				center_y: 400,
 				radius: 10,
 				color: "#D92929",
+				direction: "r",
 			},
 		},
 	]);
