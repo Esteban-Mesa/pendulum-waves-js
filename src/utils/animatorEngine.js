@@ -66,9 +66,21 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 function update(items) {
 	items.map((item) => {
 		if (item.type === "circle") {
-			item.module.center_x += 1;
+			if (item.module.center_x > 500) {
+				item.module.direction = "l";
+			} else if (item.module.center_x < 1) {
+				item.module.direction = "r";
+			}
+
+			if (item.module.direction === "r") {
+				item.module.center_x += 1;
+			} else if (item.module.direction === "l") {
+				item.module.center_x += -1;
+			}
 		}
 	});
+
+	return items;
 }
 
 export { draw, update };

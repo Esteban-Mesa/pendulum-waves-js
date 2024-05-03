@@ -1,17 +1,11 @@
 import { useContext } from "react";
 import { PlusCircle } from "../assets/plus-circle";
-import { ElementAnimator } from "./ElementAnimator";
 import { CircleModule } from "./CircleModule";
-
 import { ConcentricContext } from "../context/ConcentricContext";
 
 function ConsoleAnimator() {
-	const {
-		nodeAnimatorList,
-		addNodeAnim,
-		moduleAnimationList,
-		setModuleAnimationList,
-	} = useContext(ConcentricContext);
+	const { moduleAnimationList, setModuleAnimationList } =
+		useContext(ConcentricContext);
 
 	const changeDataModule = (hash, values) => {
 		setModuleAnimationList(
@@ -29,14 +23,12 @@ function ConsoleAnimator() {
 			<ul className="flex flex-col flex-1">
 				{moduleAnimationList.map((data) => (
 					<CircleModule
+						key={data.hash}
 						type={data.type}
 						hash={data.hash}
 						module={data.module}
 						changeDataModule={changeDataModule}
 					/>
-				))}
-				{nodeAnimatorList.map((node, index) => (
-					<ElementAnimator text={node} key={index} />
 				))}
 			</ul>
 			<button

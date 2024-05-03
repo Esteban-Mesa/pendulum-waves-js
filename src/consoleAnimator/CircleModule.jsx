@@ -1,5 +1,10 @@
-function CircleModule({ type, hash, module, changeDataModule }) {
-	const { center_x, center_y, radius, color } = module;
+import { useState } from "react";
+
+function CircleModule({ hash, module, changeDataModule }) {
+	const [center_x, setCenter_x] = useState(0);
+	const [center_y, setCenter_y] = useState(0);
+	const [radius, setRadius] = useState(10);
+	const [color, setColor] = useState("#000000");
 
 	return (
 		<li className="bg-caGray-60 text-caGray-10 mb-2 p-2">
@@ -8,14 +13,19 @@ function CircleModule({ type, hash, module, changeDataModule }) {
 				<li>
 					<span>x:</span>
 					<input
+						className="text-black"
 						type="number"
 						value={center_x}
-						className="text-black"
 						onChange={(event) => {
+							let val =
+								event.target.value === "" ? 0 : parseInt(event.target.value);
 							let data = module;
-							data.center_x = parseInt(event.target.value);
+
+							setCenter_x(val);
+							data.center_x = val;
 							changeDataModule(hash, data);
 						}}
+						onClick={(event) => event.target.select()}
 					/>
 				</li>
 				<li>
@@ -25,10 +35,15 @@ function CircleModule({ type, hash, module, changeDataModule }) {
 						value={center_y}
 						className="text-black"
 						onChange={(event) => {
+							let val =
+								event.target.value === "" ? 0 : parseInt(event.target.value);
 							let data = module;
-							data.center_y = parseInt(event.target.value);
+
+							setCenter_y(val);
+							data.center_y = val;
 							changeDataModule(hash, data);
 						}}
+						onClick={(event) => event.target.select()}
 					/>
 				</li>
 				<li>
@@ -38,10 +53,15 @@ function CircleModule({ type, hash, module, changeDataModule }) {
 						value={radius}
 						className="text-black"
 						onChange={(event) => {
+							let val =
+								event.target.value === "" ? 0 : parseInt(event.target.value);
 							let data = module;
-							data.radius = event.target.value;
+
+							setRadius(val);
+							data.radius = val;
 							changeDataModule(hash, data);
 						}}
+						onClick={(event) => event.target.select()}
 					/>
 				</li>
 				<li>

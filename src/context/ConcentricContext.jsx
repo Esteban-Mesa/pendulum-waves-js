@@ -5,7 +5,6 @@ const ConcentricContext = React.createContext();
 
 function ConcentricProvider({ children }) {
 	const [pauseAnimation, setPauseAnimation] = useState(true);
-	const [nodeAnimatorList, setNodeAnimatorList] = useState([]);
 	const [moduleAnimationList, setModuleAnimationList] = useState([
 		{
 			type: "circle",
@@ -31,22 +30,9 @@ function ConcentricProvider({ children }) {
 		},
 	]);
 
-	const addNodeAnim = () => {
-		if (nodeAnimatorList.length === 0) {
-			setNodeAnimatorList([1]);
-		} else {
-			const count = nodeAnimatorList.length;
-			setNodeAnimatorList([...nodeAnimatorList, count + 1]);
-		}
-		console.log(nodeAnimatorList);
-	};
-
 	return (
 		<ConcentricContext.Provider
 			value={{
-				nodeAnimatorList,
-				setNodeAnimatorList,
-				addNodeAnim,
 				moduleAnimationList,
 				setModuleAnimationList,
 				pauseAnimation,
