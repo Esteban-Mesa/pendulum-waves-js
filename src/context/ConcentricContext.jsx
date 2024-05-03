@@ -4,6 +4,7 @@ import { useState } from "react";
 const ConcentricContext = React.createContext();
 
 function ConcentricProvider({ children }) {
+	const [refehsCanvas, setRefehsCanvas] = useState(true);
 	const [pauseAnimation, setPauseAnimation] = useState(true);
 	const [moduleAnimationList, setModuleAnimationList] = useState([
 		{
@@ -30,13 +31,36 @@ function ConcentricProvider({ children }) {
 		},
 	]);
 
+	const addModuleAnimation = (type) => {
+		if (type === "circle") {
+			let circle = {
+				type: "circle",
+				hash: moduleAnimationList.length + Math.random(),
+				module: {
+					center_x: 0,
+					center_y: 0,
+					radius: 10,
+					color: "#000000",
+					direction: "r",
+				},
+			};
+
+			setModuleAnimationList([...moduleAnimationList, circle]);
+		}
+
+		setRefehsCanvas(!refehsCanvas);
+	};
+
 	return (
 		<ConcentricContext.Provider
 			value={{
 				moduleAnimationList,
 				setModuleAnimationList,
+				addModuleAnimation,
 				pauseAnimation,
 				setPauseAnimation,
+				refehsCanvas,
+				setRefehsCanvas,
 			}}>
 			{children}
 		</ConcentricContext.Provider>

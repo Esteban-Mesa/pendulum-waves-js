@@ -71,8 +71,11 @@ function CircleModule({ hash, module, changeDataModule }) {
 						value={color}
 						className="text-black"
 						onChange={(event) => {
+							let val = event.target.value;
 							let data = module;
-							data.color = event.target.value;
+							data.color = val;
+
+							setColor(val);
 							changeDataModule(hash, data);
 						}}
 					/>

@@ -9,8 +9,12 @@ import { draw, update } from "../utils/animatorEngine";
 import { ConcentricContext } from "../context/ConcentricContext";
 
 function Canvas() {
-	const { moduleAnimationList, setModuleAnimationList, pauseAnimation } =
-		useContext(ConcentricContext);
+	const {
+		moduleAnimationList,
+		setModuleAnimationList,
+		pauseAnimation,
+		refehsCanvas,
+	} = useContext(ConcentricContext);
 
 	const [counter, setCounter] = useState(0);
 
@@ -39,9 +43,11 @@ function Canvas() {
 
 		draw(moduleAnimationList, canvas, ctx);
 
-		const items = update(moduleAnimationList);
-		setModuleAnimationList(items);
-	}, [counter]);
+		if (!pauseAnimation) {
+			const items = update(moduleAnimationList);
+			setModuleAnimationList(items);
+		}
+	}, [counter, refehsCanvas]);
 
 	return (
 		<canvas ref={ref} className="bg-caGray-10 h-[80%] max-h-96 aspect-square" />

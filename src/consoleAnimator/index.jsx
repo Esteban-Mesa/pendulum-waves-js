@@ -4,8 +4,13 @@ import { CircleModule } from "./CircleModule";
 import { ConcentricContext } from "../context/ConcentricContext";
 
 function ConsoleAnimator() {
-	const { moduleAnimationList, setModuleAnimationList } =
-		useContext(ConcentricContext);
+	const {
+		moduleAnimationList,
+		setModuleAnimationList,
+		addModuleAnimation,
+		refehsCanvas,
+		setRefehsCanvas,
+	} = useContext(ConcentricContext);
 
 	const changeDataModule = (hash, values) => {
 		setModuleAnimationList(
@@ -16,6 +21,8 @@ function ConsoleAnimator() {
 				return item;
 			})
 		);
+
+		setRefehsCanvas(!refehsCanvas);
 	};
 
 	return (
@@ -35,7 +42,7 @@ function ConsoleAnimator() {
 				type="button"
 				className="m-3 self-center"
 				onClick={() => {
-					addNodeAnim();
+					addModuleAnimation("circle");
 				}}>
 				<PlusCircle className="text-caAccent h-10 w-10" />
 			</button>
