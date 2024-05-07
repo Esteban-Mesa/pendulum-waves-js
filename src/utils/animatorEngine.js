@@ -1,12 +1,12 @@
 function draw(items, canvas = { width: 0, height: 0 }, context) {
 	//#region engine
-	const calculatePolar = (angle = 0, distance = 0) => {
+	const calculatePolar = (angle = 0, radius = 0) => {
 		const toRad = (angle * Math.PI) / 180;
 
-		let orderly = Math.sin(toRad) * distance + canvas.width / 2;
-		let abscissa = Math.cos(toRad) * distance + canvas.height / 2;
+		let orderly = Math.sin(toRad) * radius + canvas.width / 2;
+		let abscissa = Math.cos(toRad) * radius + canvas.height / 2;
 
-		return { x: orderly, y: abscissa };
+		return { x: abscissa, y: orderly };
 	};
 
 	//#region bruses
@@ -17,34 +17,29 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 		context.fill(circle);
 	};
 
-	//#region entitise
+	//#region entities
 	const pendulum = ({ angle = 0, radius = 0, size = 0, color = "black" }) => ({
 		angle,
 		radius,
 		color,
 		size,
 		perimeter: 2 * Math.PI * radius,
-		draw(time = 0) {
-			this.angle += this.perimeter / time;
-			const direction = calculatePolar(this.angle, this.radius);
-			circleBrush(direction.x, direction.y, this.size, this.color);
-		},
 	});
 
 	const pendulumWave = ({
-		amount = 0,
-		centerGap = 0,
-		gap = 0,
-		angle = 0,
-		size = 0,
-		color = "black",
+		numberPendulums = 12,
+		initialAngle = 0,
+		size = 5,
+		initialGap = 20,
+		gap = 10,
+		color = "#000000",
 	}) => {
 		let group = [];
 
-		for (let i = 0; i < amount; i++) {
+		for (let i = 0; i < numberPendulums; i++) {
 			const p = pendulum({
-				angle: angle,
-				radius: centerGap + gap * i,
+				angle: initialAngle,
+				radius: initialGap + gap * i,
 				size: size,
 				color: color,
 			});
@@ -54,11 +49,31 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 		return group;
 	};
 
+	//#region draw functions
+	const drawCricleBounce = (module) => {
+		circleBrush(module);
+	};
+
+	const drawPendulumWave = (module) => {
+		for (const p of module.pendulums) {
+			const pos = calculatePolar(p.angle, p.radius);
+			circleBrush({
+				center_x: pos.x,
+				center_y: pos.y,
+				radius: p.size,
+				color: p.color,
+			});
+		}
+	};
+
+	//#region Render
 	items.map((item) => {
 		if (item.type === "circle") {
-			circleBrush(item.module);
-		} else {
-			circleBrush(item);
+			drawCricleBounce(item.module);
+		}
+
+		if (item.type === "circular_pendulum_wave") {
+			drawPendulumWave(item.module);
 		}
 	});
 }
@@ -77,6 +92,16 @@ function update(items) {
 			} else if (item.module.direction === "l") {
 				item.module.center_x += -1;
 			}
+		}
+
+		if (item.type === "circular_pendulum_wave") {
+			item.module.pendulums.forEach((element) => {
+				if (element.angle > 360) {
+					element.angle -= 360;
+				}
+				let velocity = (element.perimeter / 360) * item.module.speed;
+				element.angle += velocity;
+			});
 		}
 	});
 

@@ -33,6 +33,7 @@ function Canvas() {
 		}
 	}, [pauseAnimation]);
 
+	// crear otro effect que solo dibuje
 	useEffect(() => {
 		const canvas = ref.current;
 		const ctx = canvas.getContext("2d");
@@ -42,12 +43,12 @@ function Canvas() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		draw(moduleAnimationList, canvas, ctx);
-
-		if (!pauseAnimation) {
-			const items = update(moduleAnimationList);
-			setModuleAnimationList(items);
-		}
 	}, [counter, refehsCanvas]);
+
+	useEffect(() => {
+		const items = update(moduleAnimationList);
+		setModuleAnimationList(items);
+	}, [counter]);
 
 	return (
 		<canvas ref={ref} className="bg-caGray-10 h-[80%] max-h-96 aspect-square" />
