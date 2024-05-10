@@ -1,21 +1,22 @@
 import { useState } from "react";
 
 function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
-	const data = {
-		numberPendulums: 12,
-		initialAngle: 0,
-		size: 5,
-		initialGap: 0,
-		gap: 0,
-		color: "#000000",
-	};
-
-	const [numberPendulums, setNumberPendulums] = useState(1);
+	const [numberPendulums, setNumberPendulums] = useState(6);
 	const [initialAngle, setInitialAngle] = useState(0);
+	const [speed, setSpeed] = useState(1);
 	const [size, setSize] = useState(10);
-	const [initialGap, setInitialGap] = useState(0);
+	const [initialGap, setInitialGap] = useState(10);
 	const [gap, setGap] = useState(20);
-	const [setColor, setsetColor] = useState("#000000");
+	const [color, setColor] = useState("#000000");
+
+	const pendulumsData = {
+		numberPendulums: numberPendulums,
+		initialAngle: initialAngle,
+		size: size,
+		initialGap: initialGap,
+		gap: gap,
+		color: color,
+	};
 
 	const pendulum = ({ angle = 0, radius = 0, size = 0, color = "black" }) => ({
 		angle,
@@ -26,12 +27,12 @@ function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
 	});
 
 	const pendulumWave = ({
-		numberPendulums = 12,
-		initialAngle = 0,
-		size = 5,
-		initialGap = 20,
-		gap = 10,
-		color = "#000000",
+		numberPendulums,
+		initialAngle,
+		size,
+		initialGap,
+		gap,
+		color,
 	}) => {
 		let group = [];
 
@@ -54,37 +55,154 @@ function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
 			<ul>
 				<li>
 					<span>numberPendulums:</span>
-					<input type="text" />
+					<input
+						className="text-black"
+						type="number"
+						value={numberPendulums}
+						onChange={(event) => {
+							let val = event.target.value;
+							val = val === "" || val < 1 ? 1 : parseInt(val);
+							let data = module;
+
+							setNumberPendulums(val);
+							pendulumsData.numberPendulums = val;
+
+							data.pendulums = pendulumWave(pendulumsData);
+							changeDataModule(hash, data);
+						}}
+						onClick={(event) => event.target.select()}
+					/>
 				</li>
-			</ul>
-			<ul>
 				<li>
 					<span>initialAngle:</span>
-					<input type="text" />
+					<input
+						className="text-black"
+						type="number"
+						value={initialAngle}
+						onChange={(event) => {
+							let val = event.target.value;
+							val = val === "" ? 0 : parseInt(val);
+							if (val < 0) {
+								val = 360;
+							}
+							if (val > 360) {
+								val -= 360;
+							}
+
+							let data = module;
+
+							setInitialAngle(val);
+							pendulumsData.initialAngle = val;
+
+							data.pendulums = pendulumWave(pendulumsData);
+							changeDataModule(hash, data);
+						}}
+						onClick={(event) => event.target.select()}
+					/>
 				</li>
-			</ul>
-			<ul>
+				<li>
+					<span>speed:</span>
+					<input
+						className="text-black"
+						type="number"
+						value={speed}
+						onChange={(event) => {
+							let val = event.target.value;
+							val = val === "" ? 0 : parseInt(val);
+							let data = module;
+
+							setSpeed(val);
+							data.speed = val;
+							changeDataModule(hash, data);
+						}}
+						onClick={(event) => event.target.select()}
+					/>
+				</li>
 				<li>
 					<span>size:</span>
-					<input type="text" />
+					<input
+						className="text-black"
+						type="number"
+						value={size}
+						onChange={(event) => {
+							let val = event.target.value;
+							val = val === "" || val < 1 ? 1 : parseInt(val);
+							let data = module;
+
+							setSize(val);
+
+							data.pendulums.map((item) => {
+								item.size = val;
+							});
+							changeDataModule(hash, data);
+						}}
+						onClick={(event) => event.target.select()}
+					/>
 				</li>
-			</ul>
-			<ul>
 				<li>
 					<span>initialGap:</span>
-					<input type="text" />
+					<input
+						className="text-black"
+						type="number"
+						value={initialGap}
+						onChange={(event) => {
+							let val = event.target.value;
+							val = val === "" || val < 0 ? 0 : parseInt(event.target.value);
+							let data = module;
+
+							setInitialGap(val);
+							pendulumsData.initialGap = val;
+							const pw = pendulumWave(pendulumsData);
+							data.pendulums.map((item, index) => {
+								item.radius = pw[index].radius;
+								item.perimeter = pw[index].perimeter;
+							});
+							changeDataModule(hash, data);
+						}}
+						onClick={(event) => event.target.select()}
+					/>
 				</li>
-			</ul>
-			<ul>
 				<li>
 					<span>gap:</span>
-					<input type="text" />
+					<input
+						className="text-black"
+						type="number"
+						value={gap}
+						onChange={(event) => {
+							let val = event.target.value;
+							val = val === "" || val < 1 ? 1 : parseInt(event.target.value);
+							let data = module;
+
+							setGap(val);
+							pendulumsData.gap = val;
+							const pw = pendulumWave(pendulumsData);
+							data.pendulums.map((item, index) => {
+								item.radius = pw[index].radius;
+								item.perimeter = pw[index].perimeter;
+							});
+							changeDataModule(hash, data);
+						}}
+						onClick={(event) => event.target.select()}
+					/>
 				</li>
-			</ul>
-			<ul>
 				<li>
 					<span>color:</span>
-					<input type="color" />
+					<input
+						type="color"
+						value={color}
+						onChange={(event) => {
+							let val = event.target.value;
+							let data = module;
+							data.color = val;
+
+							setColor(val);
+
+							data.pendulums.map((item) => {
+								item.color = val;
+							});
+							changeDataModule(hash, data);
+						}}
+					/>
 				</li>
 			</ul>
 		</li>
