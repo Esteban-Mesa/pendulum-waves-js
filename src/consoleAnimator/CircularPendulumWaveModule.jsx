@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
-	const [numberPendulums, setNumberPendulums] = useState(6);
+	const [numberPendulums, setNumberPendulums] = useState(12);
 	const [initialAngle, setInitialAngle] = useState(0);
 	const [speed, setSpeed] = useState(1);
-	const [size, setSize] = useState(10);
-	const [initialGap, setInitialGap] = useState(10);
-	const [gap, setGap] = useState(20);
+	const [size, setSize] = useState(5);
+	const [initialGap, setInitialGap] = useState(20);
+	const [gap, setGap] = useState(10);
 	const [color, setColor] = useState("#000000");
 
 	const pendulumsData = {
@@ -51,7 +51,7 @@ function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
 
 	return (
 		<li className="bg-caGray-60 text-caGray-10 mb-2 p-2">
-			<h3>Circular pendulum wave</h3>
+			<h3>Circular pendulum wave {hash}</h3>
 			<ul>
 				<li>
 					<span>numberPendulums:</span>

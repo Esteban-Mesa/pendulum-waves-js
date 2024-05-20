@@ -34,6 +34,7 @@ function ConsoleAnimator() {
 						return (
 							<CircleModule
 								key={data.hash}
+								hash={data.hash}
 								module={data.module}
 								changeDataModule={changeDataModule}
 							/>
@@ -44,6 +45,7 @@ function ConsoleAnimator() {
 						return (
 							<CircularPendulumWaveModule
 								key={data.hash}
+								hash={data.hash}
 								module={data.module}
 								changeDataModule={changeDataModule}
 							/>
@@ -55,7 +57,7 @@ function ConsoleAnimator() {
 				type="button"
 				className="m-3 self-center"
 				onClick={() => {
-					addModuleAnimation("circle");
+					addModuleAnimation("circular_pendulum_wave");
 				}}>
 				<PlusCircle className="text-caAccent h-10 w-10" />
 			</button>
