@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
+function CircularPendulumWaveModule({
+	hash,
+	module,
+	changeDataModule,
+	deleteModule,
+}) {
 	const [numberPendulums, setNumberPendulums] = useState(12);
 	const [initialAngle, setInitialAngle] = useState(0);
 	const [speed, setSpeed] = useState(1);
@@ -203,6 +208,15 @@ function CircularPendulumWaveModule({ hash, module, changeDataModule }) {
 							changeDataModule(hash, data);
 						}}
 					/>
+				</li>
+				<li>
+					<button
+						type="button"
+						onClick={() => {
+							deleteModule(hash);
+						}}>
+						detele
+					</button>
 				</li>
 			</ul>
 		</li>

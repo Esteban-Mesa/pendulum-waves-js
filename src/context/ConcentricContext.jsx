@@ -11,15 +11,14 @@ function ConcentricProvider({ children }) {
 
 	const addModuleAnimation = (type) => {
 		let newModuleAnimation;
+		const hash = moduleAnimationList.length + Math.random();
 
 		if (type === "circle") {
-			const hash = moduleAnimationList.length + Math.random();
 			const module = defaultAnimationModules.bounceCircle(hash);
 			newModuleAnimation = module;
 		}
 
 		if (type === "circular_pendulum_wave") {
-			const hash = moduleAnimationList.length + Math.random();
 			const module = defaultAnimationModules.circularPendulumWaveModule(hash);
 			newModuleAnimation = module;
 		}

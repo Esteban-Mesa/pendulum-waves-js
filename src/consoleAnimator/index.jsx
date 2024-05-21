@@ -26,6 +26,15 @@ function ConsoleAnimator() {
 		setRefehsCanvas(!refehsCanvas);
 	};
 
+	const deleteModuleAnimation = (hash) => {
+		const newModules = moduleAnimationList.filter((item) => item.hash !== hash);
+		console.log(newModules);
+		console.log(moduleAnimationList);
+		console.log(hash);
+
+		setModuleAnimationList(newModules);
+	};
+
 	return (
 		<aside className="bg-caGray-90 flex flex-col p-3 overflow-y-scroll">
 			<ul className="flex flex-col flex-1">
@@ -48,6 +57,7 @@ function ConsoleAnimator() {
 								hash={data.hash}
 								module={data.module}
 								changeDataModule={changeDataModule}
+								deleteModule={deleteModuleAnimation}
 							/>
 						);
 					}
