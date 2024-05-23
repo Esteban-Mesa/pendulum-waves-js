@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Trash } from "../assets/trash";
 
 function CircularPendulumWaveModule({
 	hash,
@@ -211,11 +212,12 @@ function CircularPendulumWaveModule({
 				</li>
 				<li>
 					<button
+						className="bg-caGray-90 text-red-600 p-1 rounded-lg hover:text-red-300 hover:bg-red-950 active:text-caGray-90"
 						type="button"
 						onClick={() => {
 							deleteModule(hash);
 						}}>
-						detele
+						<Trash className="w-6 h-6" />
 					</button>
 				</li>
 			</ul>

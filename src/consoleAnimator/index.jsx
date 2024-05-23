@@ -33,6 +33,7 @@ function ConsoleAnimator() {
 		console.log(hash);
 
 		setModuleAnimationList(newModules);
+		setRefehsCanvas(!refehsCanvas);
 	};
 
 	return (
