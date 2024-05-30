@@ -33,7 +33,6 @@ function Canvas() {
 		}
 	}, [pauseAnimation]);
 
-	// crear otro effect que solo dibuje
 	useEffect(() => {
 		const canvas = ref.current;
 		const ctx = canvas.getContext("2d");

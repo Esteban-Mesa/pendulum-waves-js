@@ -63,12 +63,18 @@ function update(items) {
 		}
 
 		if (item.type === "circular_pendulum_wave") {
-			item.module.pendulums.forEach((element) => {
-				if (element.angle > 360) {
-					element.angle -= 360;
+			item.module.pendulums.forEach((module) => {
+				if (module.angle > 360) {
+					module.angle -= 360;
 				}
-				let velocity = (element.perimeter / 360) * item.module.speed;
-				element.angle += velocity;
+				let velocity = (module.perimeter / 360) * item.module.speed;
+
+				if (item.direction === "left") {
+					module.angle += velocity;
+				}
+				if (item.direction === "right") {
+					module.angle -= velocity;
+				}
 			});
 		}
 	});

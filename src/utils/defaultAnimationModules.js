@@ -13,6 +13,7 @@ const defaultAnimationModules = {
 	circularPendulumWaveModule: (newHash = 0) => ({
 		type: "circular_pendulum_wave",
 		hash: newHash,
+		direction: "left",
 		module: {
 			speed: 1,
 			pendulums: [
