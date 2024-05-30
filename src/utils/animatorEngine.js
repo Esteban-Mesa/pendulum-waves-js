@@ -1,7 +1,7 @@
 function draw(items, canvas = { width: 0, height: 0 }, context) {
 	//#region engine
 	const calculatePolar = (angle = 0, radius = 0) => {
-		const toRad = (angle * Math.PI) / 180;
+		const toRad = -(angle * Math.PI) / 180;
 
 		let orderly = Math.sin(toRad) * radius + canvas.width / 2;
 		let abscissa = Math.cos(toRad) * radius + canvas.height / 2;
@@ -15,38 +15,6 @@ function draw(items, canvas = { width: 0, height: 0 }, context) {
 		circle.arc(center_x, center_y, radius, 0, 2 * Math.PI);
 		context.fillStyle = color;
 		context.fill(circle);
-	};
-
-	//#region entities
-	const pendulum = ({ angle = 0, radius = 0, size = 0, color = "black" }) => ({
-		angle,
-		radius,
-		color,
-		size,
-		perimeter: 2 * Math.PI * radius,
-	});
-
-	const pendulumWave = ({
-		numberPendulums = 12,
-		initialAngle = 0,
-		size = 5,
-		initialGap = 20,
-		gap = 10,
-		color = "#000000",
-	}) => {
-		let group = [];
-
-		for (let i = 0; i < numberPendulums; i++) {
-			const p = pendulum({
-				angle: initialAngle,
-				radius: initialGap + gap * i,
-				size: size,
-				color: color,
-			});
-			group.push(p);
-		}
-
-		return group;
 	};
 
 	//#region draw functions
