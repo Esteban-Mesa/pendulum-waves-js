@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Trash } from "../assets/trash";
+import { BaseModule } from "./BaseModule";
+import { DeteleModuleButton } from "./InputsOfModule/DeteleModuleButton";
+import { NumberModuleInput } from "./InputsOfModule/NumberModuleInput";
 
 function CircularPendulumWaveModule({
 	hash,
@@ -56,6 +58,130 @@ function CircularPendulumWaveModule({
 	};
 
 	return (
+		<BaseModule nameModule={"Circular pendulum wave"}>
+			<NumberModuleInput
+				name={"Number of pendulums:"}
+				enableZero={false}
+				valueToShow={numberPendulums}
+				valueToChange={(val) => {
+					let data = module;
+
+					setNumberPendulums(val);
+					pendulumsData.numberPendulums = val;
+
+					data.pendulums = pendulumWave(pendulumsData);
+					changeDataModule(hash, data);
+				}}
+			/>
+			<NumberModuleInput
+				name={"Initial angle: change"}
+				enableZero={true}
+				valueToShow={initialAngle}
+				valueToChange={(val) => {
+					if (val < 0) {
+						val = 360;
+					}
+					if (val > 360) {
+						val -= 360;
+					}
+
+					let data = module;
+
+					setInitialAngle(val);
+					pendulumsData.initialAngle = val;
+
+					data.pendulums = pendulumWave(pendulumsData);
+					changeDataModule(hash, data);
+				}}
+			/>
+			<NumberModuleInput
+				name={"Speed:"}
+				enableZero={true}
+				valueToShow={speed}
+				valueToChange={(val) => {
+					let data = module;
+
+					setSpeed(val);
+					data.speed = val;
+					changeDataModule(hash, data);
+				}}
+			/>
+			<NumberModuleInput
+				name={"Size:"}
+				enableZero={false}
+				valueToShow={size}
+				valueToChange={(val) => {
+					let data = module;
+
+					setSize(val);
+
+					data.pendulums.map((item) => {
+						item.size = val;
+					});
+					changeDataModule(hash, data);
+				}}
+			/>
+			<NumberModuleInput
+				name={"Initial gap:"}
+				enableZero={true}
+				valueToShow={initialGap}
+				valueToChange={(val) => {
+					let data = module;
+
+					setInitialGap(val);
+					pendulumsData.initialGap = val;
+					const pw = pendulumWave(pendulumsData);
+					data.pendulums.map((item, index) => {
+						item.radius = pw[index].radius;
+						item.perimeter = pw[index].perimeter;
+					});
+					changeDataModule(hash, data);
+				}}
+			/>
+			<NumberModuleInput
+				name={"Gap:"}
+				enableZero={false}
+				valueToShow={gap}
+				valueToChange={(val) => {
+					let data = module;
+
+					setGap(val);
+					pendulumsData.gap = val;
+					const pw = pendulumWave(pendulumsData);
+					data.pendulums.map((item, index) => {
+						item.radius = pw[index].radius;
+						item.perimeter = pw[index].perimeter;
+					});
+					changeDataModule(hash, data);
+				}}
+			/>
+			<li>
+				<span>color:</span>
+				<input
+					type="color"
+					value={color}
+					onChange={(event) => {
+						let val = event.target.value;
+						let data = module;
+						data.color = val;
+
+						setColor(val);
+
+						data.pendulums.map((item) => {
+							item.color = val;
+						});
+						changeDataModule(hash, data);
+					}}
+				/>
+			</li>
+
+			<DeteleModuleButton
+				onClick={() => {
+					deleteModule(hash);
+				}}
+			/>
+		</BaseModule>
+		/* 
 		<li className="bg-caGray-60 text-caGray-10 mb-2 p-2">
 			<h3>Circular pendulum wave {hash}</h3>
 			<ul>
@@ -211,17 +337,14 @@ function CircularPendulumWaveModule({
 					/>
 				</li>
 				<li>
-					<button
-						className="bg-caGray-90 text-red-600 p-1 rounded-lg hover:text-red-300 hover:bg-red-950 active:text-caGray-90"
-						type="button"
+					<DeteleModuleButton
 						onClick={() => {
 							deleteModule(hash);
-						}}>
-						<Trash className="w-6 h-6" />
-					</button>
+						}}
+					/>
 				</li>
 			</ul>
-		</li>
+		</li> */
 	);
 }
 

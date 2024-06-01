@@ -28,9 +28,6 @@ function ConsoleAnimator() {
 
 	const deleteModuleAnimation = (hash) => {
 		const newModules = moduleAnimationList.filter((item) => item.hash !== hash);
-		console.log(newModules);
-		console.log(moduleAnimationList);
-		console.log(hash);
 
 		setModuleAnimationList(newModules);
 		setRefehsCanvas(!refehsCanvas);
